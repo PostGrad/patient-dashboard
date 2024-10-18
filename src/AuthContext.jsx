@@ -57,11 +57,11 @@ export const AuthProvider = ({ children }) => {
           : authToken;
       console.log("tokenHeader in context => ", tokenHeader);
 
-      axios.defaults.headers.common["authorization"] = tokenHeader;
+      axios.defaults.headers.common["Authorization"] = tokenHeader;
       axios.defaults.withCredentials = true;
       console.log("axios.defaults => ", axios.defaults);
     } else {
-      delete axios.defaults.headers.common["authorization"];
+      delete axios.defaults.headers.common["Authorization"];
     }
   }, [authToken]);
 

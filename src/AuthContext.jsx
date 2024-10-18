@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
         { email, password }
       );
       const { token } = response.data;
+      console.log("token after login => ", token);
       localStorage.setItem("token", token);
       setAuthToken(token);
       setUser(parseJwt(token));

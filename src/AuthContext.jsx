@@ -32,8 +32,11 @@ export const AuthProvider = ({ children }) => {
       setUser(parseJwt(token));
       return { success: true };
     } catch (error) {
-      console.error("Login error:", error.response.data);
-      return { success: false, message: error.response.data.error };
+      console.error("Login error:", error.response?.data || error.message);
+      return {
+        success: false,
+        message: error.response?.data?.error || "Login failed",
+      };
     }
   };
 
@@ -45,7 +48,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (authToken) {
-      axios.defaults.headers.common["Authorization"] = authToken;
+      // axios.defaults.headers.common["Authorization"] = authToken;
+      console.log("node env => ", process.env.NODE_ENV);
+      const tokenHeader =
+        process.env.NODE_ENV === "production"
+          ? `Bearer ${authToken}`
+          : authToken;
+
+      axios.defaults.headers.common["Authorization"] = tokenHeader;
     } else {
       delete axios.defaults.headers.common["Authorization"];
     }

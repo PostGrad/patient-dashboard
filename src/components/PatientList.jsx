@@ -27,21 +27,24 @@ const PatientList = () => {
 
   useEffect(() => {
     const fetchPatients = async () => {
-      try {
-        console.log("authToken in patient list => ", authToken);
-        if (!!authToken) {
+      console.log("authToken in patient list => ", authToken);
+
+      if (!!authToken) {
+        try {
+          console.log("axios.defaults in patient list => ", axios.defaults);
+
           const response = await axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/api/patients`
           );
           setPatients(response.data);
+        } catch (error) {
+          console.error("Error fetching patients:", error);
         }
-      } catch (error) {
-        console.error("Error fetching patients:", error);
       }
     };
 
     fetchPatients();
-  }, []);
+  }, [authToken]);
 
   const filteredPatients = patients.filter((patient) =>
     `${patient.name.first} ${patient.name.last}`

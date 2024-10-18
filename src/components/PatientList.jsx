@@ -27,11 +27,11 @@ const PatientList = () => {
 
   useEffect(() => {
     const fetchPatients = async () => {
-      console.log("authToken in patient list => ", authToken);
+      // console.log("authToken in patient list => ", authToken);
 
       if (!!authToken) {
         try {
-          console.log("axios.defaults in patient list => ", axios.defaults);
+          // console.log("axios.defaults in patient list => ", axios.defaults);
 
           const response = await axios.get(
             `${process.env.REACT_APP_BACKEND_URL}/api/patients`,

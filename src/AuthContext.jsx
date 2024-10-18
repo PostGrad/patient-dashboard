@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
         { email, password }
       );
       const { token } = response.data;
-      console.log("token after login => ", token);
+      // console.log("token after login => ", token);
       localStorage.setItem("token", token);
       setAuthToken(token);
       setUser(parseJwt(token));
@@ -49,17 +49,16 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (authToken) {
-      // axios.defaults.headers.common["Authorization"] = authToken;
-      console.log("node env => ", process.env.NODE_ENV);
+      // console.log("node env => ", process.env.NODE_ENV);
       const tokenHeader =
         process.env.NODE_ENV === "production"
           ? `Bearer ${authToken}`
           : authToken;
-      console.log("tokenHeader in context => ", tokenHeader);
+      // console.log("tokenHeader in context => ", tokenHeader);
 
       axios.defaults.headers.common["Authorization"] = tokenHeader;
       axios.defaults.withCredentials = true;
-      console.log("axios.defaults => ", axios.defaults);
+      // console.log("axios.defaults => ", axios.defaults);
     } else {
       delete axios.defaults.headers.common["Authorization"];
     }

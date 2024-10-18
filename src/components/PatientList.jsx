@@ -34,7 +34,13 @@ const PatientList = () => {
           console.log("axios.defaults in patient list => ", axios.defaults);
 
           const response = await axios.get(
-            `${process.env.REACT_APP_BACKEND_URL}/api/patients`
+            `${process.env.REACT_APP_BACKEND_URL}/api/patients`,
+            {
+              headers: {
+                Authorization: `Bearer ${authToken}`,
+              },
+              withCredentials: true,
+            }
           );
           setPatients(response.data);
         } catch (error) {

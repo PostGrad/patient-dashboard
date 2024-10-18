@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }) => {
         process.env.NODE_ENV === "production"
           ? `Bearer ${authToken}`
           : authToken;
+      console.log("tokenHeader in context => ", tokenHeader);
 
       axios.defaults.headers.common["Authorization"] = tokenHeader;
     } else {
